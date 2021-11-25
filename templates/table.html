@@ -19,21 +19,43 @@
     const myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['2021-11-27', '2021-11-30', '2021-12-02', '2021-12-24'],
+            labels: {{ labels|safe }},
             datasets: [{
                 label: 'Lines of code',
-                data: [50, 45, 35, 20, 10],
+                data: {{ category_dict.loc }},
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1,
             },
             {
                 label: 'Flake8 exceptions',
-                data: [45, 35, 5, 2, 1],
+                data: {{ category_dict.flake8 }},
+                fill: false,
+                borderColor: 'rgb(204, 200, 1)',
+                tension: 0.1,
+            },
+            {
+                label: 'no-qa occurrences',
+                data: {{ category_dict.noqa }},
                 fill: false,
                 borderColor: 'rgb(255, 0, 102)',
                 tension: 0.1,
-            }]
+            },
+            {
+                label: 'Avg module size',
+                data: {{ category_dict.mod_size }},
+                fill: false,
+                borderColor: 'rgb(50, 20, 150)',
+                tension: 0.1,
+            },
+            {
+                label: 'Test coverage',
+                data: {{ category_dict.coverage }},
+                fill: false,
+                borderColor: 'rgb(100, 2, 10)',
+                tension: 0.1,
+            }
+            ]
         },
         options: {
             scales: {

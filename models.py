@@ -4,7 +4,7 @@ db = SQLAlchemy()
 
 
 class AnalysisModel(db.Model):
-    __tablename__ = 'analysis'
+    __tablename__ = 'apiV2'
 
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.Date())
