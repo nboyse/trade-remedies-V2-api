@@ -9,19 +9,19 @@ services:
     volumes:
       - ./:/app
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DB: flask_app
+      POSTGRES_HOST: postgres
+    depends_on:
+      - postgres
 
 
-  mysql:
-    image: mysql:8.0
+  postgres:
+    image: postgres:12
+    env_file: .env
+    ports:
+      - "5432:5432"
     volumes:
-      - mysql-flask-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: flask_app
+      - CreateDB.sql/docker-entrypoint-initdb.d/
 
 volumes:
-  mysql-flask-data:
+  web_packages:
+    driver: local

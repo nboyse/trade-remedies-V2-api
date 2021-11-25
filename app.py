@@ -1,21 +1,28 @@
-from flask import Flask
+from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from models import db, AnalysisModel
+
+app = Flask(__name__, static_url_path='',
+            static_folder='static',
+            template_folder='templates')
+app.config["DEBUG"] = True
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@postgres:5432/apiV2"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+db.init_app(app)
+migrate = Migrate(app, db)
 
-@app.route('/post', methods = ['POST'])
-def post_data():
-    # POST endpoint to capture domain/category/value metric
-    pass
 
-@app.route('/get', methods = ['GET'])
-def get_data():
+@app.route('/', methods=['GET'])
+def get_data(data=None):
     # GET endpoint to show values for a given domain
-    pass
+    # data = AnalysisModel.query.all()
+    return render_template('table.html', data=data)
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

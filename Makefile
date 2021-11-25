@@ -15,7 +15,7 @@ help:
 	@echo -e "$(COLOUR_GREEN)|--- $(APPLICATION_NAME) [$(APPLICATION_VERSION)] ---|$(COLOUR_NONE)"
 	@echo -e "$(COLOUR_YELLOW)make requirements$(COLOUR_NONE) : Generate all requirements (requires local pip-compile)"
 
-all-requirements:
+requirements:
 	pip-compile --output-file requirements.txt requirements.in
 
 up:
